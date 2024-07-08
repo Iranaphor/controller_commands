@@ -12,7 +12,7 @@ setup(
     data_files=[
         ('share/ament_index/resource_index/packages', [f'resource/{pkg}']),
         ('share/{pkg}', ['package.xml']),
-        (f"share/{pkg}/config", glob(os.path.join('config', '*.[rviz][yml][yaml]'))),
+        (f"share/{pkg}/config", glob(os.path.join('config', '*'))),
         (f"share/{pkg}/launch", glob(os.path.join('launch', '*launch.[pxy][yml]*'))),
     ],
     install_requires=['setuptools'],
