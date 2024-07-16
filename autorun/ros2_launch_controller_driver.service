@@ -1,0 +1,22 @@
+[Unit]
+Description=ROS 2 Launch File for Controller Commands
+After=network.target
+
+[Service]
+Environment="DISPLAY=:0"
+Environment="ROS_DOMAIN_ID=100"
+Environment="ROS_LOCALHOST_ONLY=1"
+Environment="DISPLAY=:0"
+Environment="DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1001/bus"
+Environment="XDG_RUNTIME_DIR=/run/user/1001"
+User=jheselden
+WorkingDirectory=/home/jheselden
+ExecStartPre=/bin/mkdir -p /run/user/1001
+ExecStartPre=/bin/chown jheselden:jheselden /run/user/1001
+ExecStartPre=/bin/chmod 700 /run/user/1001
+ExecStartPre=/bin/bash -c 'export $(dbus-launch)'
+ExecStart=/bin/bash -c 'source /opt/ros/humble/setup.bash; source /home/jheselden/ros2_ws/install/setup.bash; ros2 launch controller_commands driver.launch.py'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
